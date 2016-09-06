@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.28, created on 2016-09-05 12:18:53
-  from "/var/www/hr-timetrack/3pty/Smarty/demo/templates/authorization.tpl" */
+/* Smarty version 3.1.28, created on 2016-09-06 10:19:17
+  from "/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/authorization.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.28',
-  'unifunc' => 'content_57cd387d44b753_53164219',
+  'unifunc' => 'content_57ce6df5737078_97919892',
   'file_dependency' => 
   array (
-    'aa657e9e3671280ac4edbc6a87a6d99cdf47179f' => 
+    '0b13ad6059975cb177fca8246c3ed4dcfeb433ab' => 
     array (
-      0 => '/var/www/hr-timetrack/3pty/Smarty/demo/templates/authorization.tpl',
-      1 => 1473061551,
+      0 => '/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/authorization.tpl',
+      1 => 1473070823,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57cd387d44b753_53164219 ($_smarty_tpl) {
+function content_57ce6df5737078_97919892 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>

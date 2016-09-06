@@ -25,6 +25,6 @@ Abstract Class Controller_Base {
 		$this->postgreSQL = new PostgreSQLOperations();
 		$this->postgreSQL->connect();
 		$this->template = new Template(get_class($this));
-		$this->log = Logger::getLogger(__CLASS__);
+		//$this->log = Logger::getLogger(__CLASS__);
 	}
 }

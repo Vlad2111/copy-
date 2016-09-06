@@ -1,4 +1,5 @@
 <?php
+session_start();
 /*
 * Copyright (c) 2016 Tecom LLC
 * All rights reserved
@@ -18,31 +19,36 @@ Class Controller_Department Extends Controller_Base {
 
 	/** Отображение списка сотрудников и проектов отдела. */
 	function viewDepartment() {
-		$date = $this->getDate();
-		$this->template->vars('date', $date);
+		if($this->checkSession() == TRUE){		
+			$date = $this->getDate();
+			$this->template->vars('date', $date);
 		
-		$status = $this->checkDataEditingForDate($date);
-		$this->template->vars('statusEditingData', $status);
+			$status = $this->checkDataEditingForDate($date);
+			$this->template->vars('statusEditingData', $status);
 		
-		if ((isset ($_GET['I']))AND($_GET['departmentName']=="C")){
-			$_GET['departmentName']=$_GET['departmentName']."&I";
+			if ((isset ($_GET['I']))AND($_GET['departmentName']=="C")){
+				$_GET['departmentName']=$_GET['departmentName']."&I";
+			}
+			if ((isset ($_GET['D']))AND($_GET['departmentName']=="R")){
+				$_GET['departmentName']=$_GET['departmentName']."&D";
+			}
+			$this->template->vars('departmentId', $_GET['departmentId']);
+			$this->template->vars('departmentName', $_GET['departmentName']);
+			
+			$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
+			$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
+		
+			$arrayEmployeeNamesForDepartment = $this->postgreSQL->getEmployeeNamesForDepartment($_GET['departmentId'], $date);
+			$this->template->vars('arrayEmployeeNamesForDepartment', $arrayEmployeeNamesForDepartment);
+		
+			$arrayProjectNamesForDepartment = $this->postgreSQL->getProjectNamesForDepartment($_GET['departmentId'], $date);
+			$this->template->vars('arrayProjectNamesForDepartment', $arrayProjectNamesForDepartment);
+		
+			$this->template->view('department', 'DepartmentLayout');
+		}else{
+			$_GET['route']='Index';
+			include 'index.php';
 		}
-		if ((isset ($_GET['D']))AND($_GET['departmentName']=="R")){
-			$_GET['departmentName']=$_GET['departmentName']."&D";
-		}
-		$this->template->vars('departmentId', $_GET['departmentId']);
-		$this->template->vars('departmentName', $_GET['departmentName']);
-		
-		$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
-		$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
-		
-		$arrayEmployeeNamesForDepartment = $this->postgreSQL->getEmployeeNamesForDepartment($_GET['departmentId'], $date);
-		$this->template->vars('arrayEmployeeNamesForDepartment', $arrayEmployeeNamesForDepartment);
-		
-		$arrayProjectNamesForDepartment = $this->postgreSQL->getProjectNamesForDepartment($_GET['departmentId'], $date);
-		$this->template->vars('arrayProjectNamesForDepartment', $arrayProjectNamesForDepartment);
-		
-		$this->template->view('department', 'DepartmentLayout');
 	}
 	
 	/** Получение даты. */
@@ -61,6 +67,15 @@ Class Controller_Department Extends Controller_Base {
 		return $date;
 	}
 	
+	/** Проверка сессии. */
+	private function checkSession() {
+		if($_SESSION['startSESSION'] == 1){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	/** Проверка данных для даты на возможность редактирования. */
 	private function checkDataEditingForDate(DateTime $date) {
 		$status = $this->postgreSQL->getDataStatusForEditing($date);

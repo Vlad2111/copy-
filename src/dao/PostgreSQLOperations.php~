@@ -31,6 +31,7 @@ class PostgreSQLOperations
 				"user={$DBConfiguration['dbuser']} ". 
 				"password={$DBConfiguration['dbpassword']}";
 		$this->dbConnect = pg_pconnect($DBConfigurationString);
+print_r($this->dbConnect);
 		if (!$this->dbConnect) {
 			$this->log->error("Не удается подключится к базе данных. ".$DBConfigurationString." ");
 			throw new Exception("Не удается подключится к базе данных. ".$DBConfigurationString." ");
@@ -166,7 +167,6 @@ class PostgreSQLOperations
 		$result = pg_query_params($this->dbConnect, 'SELECT editing_status FROM "Month" '.
 				'WHERE date_part(\'epoch\', date_trunc(\'month\', date))'.
 				' = $1', array($date->format("U")));
-print_r($date->format("U"));
 		if (!$result) {
 			$this->log->error("Не удается выполнить запрос на получение статуса редактирования для месяца. ".
 					pg_last_error($this->dbConnect));

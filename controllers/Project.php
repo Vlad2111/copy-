@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(isset($_REQUEST[session_name()])) {session_start();}
 /*
 * Copyright (c) 2016 Tecom LLC
 * All rights reserved

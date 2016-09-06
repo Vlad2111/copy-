@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.28, created on 2016-09-05 12:41:23
-  from "/var/www/hr-timetrack/3pty/Smarty/demo/templates/header.tpl" */
+/* Smarty version 3.1.28, created on 2016-09-06 10:19:21
+  from "/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/header.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.28',
-  'unifunc' => 'content_57cd3dc31ddbd2_96437367',
+  'unifunc' => 'content_57ce6df9eb5182_88214854',
   'file_dependency' => 
   array (
-    'f91dbd30e42794246ddd800d661c426db4507d97' => 
+    '7fb2b3d29423f3fb3adbb641346e817efe2bf4dc' => 
     array (
-      0 => '/var/www/hr-timetrack/3pty/Smarty/demo/templates/header.tpl',
-      1 => 1472726425,
+      0 => '/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/header.tpl',
+      1 => 1473070823,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57cd3dc31ddbd2_96437367 ($_smarty_tpl) {
+function content_57ce6df9eb5182_88214854 ($_smarty_tpl) {
 ?>
 			<!-- REQUIRED CSS SCRIPTS -->
 			<link rel="stylesheet" href="3pty/AdminLTE-2.3.5/dist/css/skins/_all-skins.min.css">

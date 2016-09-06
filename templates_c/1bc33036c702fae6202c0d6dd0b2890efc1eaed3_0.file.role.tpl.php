@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.28, created on 2016-09-05 11:24:28
-  from "/var/www/hr-timetrack/3pty/Smarty/demo/templates/role.tpl" */
+/* Smarty version 3.1.28, created on 2016-09-05 16:19:36
+  from "/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/role.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.28',
-  'unifunc' => 'content_57cd2bbc011152_47980798',
+  'unifunc' => 'content_57cd70e8844ff2_36177368',
   'file_dependency' => 
   array (
-    '394f9ae1fe0ef6445aa18da96e920ad6f752dddd' => 
+    '1bc33036c702fae6202c0d6dd0b2890efc1eaed3' => 
     array (
-      0 => '/var/www/hr-timetrack/3pty/Smarty/demo/templates/role.tpl',
-      1 => 1472726425,
+      0 => '/var/www/hr-timetrack-dev/3pty/Smarty/demo/templates/role.tpl',
+      1 => 1473070823,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:3pty/Smarty/demo/templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_57cd2bbc011152_47980798 ($_smarty_tpl) {
+function content_57cd70e8844ff2_36177368 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>

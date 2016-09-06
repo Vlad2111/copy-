@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 * Copyright (c) 2016 Tecom LLC
 * All rights reserved
@@ -35,6 +34,7 @@ Class Router {
 		$path =  'controllers';
         	$path .= '/';
         	$this->path = $path;
+echo "$path";
 	}
 	
 	/** Подключение настроек для логов.*/
@@ -92,23 +92,21 @@ Class Router {
 	
 	/** Начало работы сайта.**/
 	function start() {
-		if(($_SESSION['startSESSION']=="1")OR($_SESSION['startSESSION']=="authorization")){
-        		$this->getController($file, $controller, $action, $args);
-			if (is_readable($file) == false) {
-					$this->log->error('Не существует файл: '.$file.'');
-						die ('404 Not Found');
-			}
-			include ($file);
-			$class = 'Controller_'.$controller;
-			$controller = new $class();
+        $this->getController($file, $controller, $action, $args);
+        if (is_readable($file) == false) {
+			$this->log->error('Не существует файл: '.$file.'');
+			die ('404 Not Found');
+        }
+        include ($file);
+        $class = 'Controller_'.$controller;
+        $controller = new $class();
        
 		
-			if (is_callable(array($controller, $action)) == false) {
-					$this->log->error('Не существует класс контроллера: '.$class.'');
-						die ('404 Not Found');
-        		}
-			
-			$controller->$action();
-		}
+        if (is_callable(array($controller, $action)) == false) {
+			$this->log->error('Не существует класс контроллера: '.$class.'');
+			die ('404 Not Found');
+        }
+		
+        $controller->$action();
 	}
 }

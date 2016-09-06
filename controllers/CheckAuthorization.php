@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 * Copyright (c) 2016 Tecom LLC
 * All rights reserved
@@ -39,7 +38,9 @@ Class Controller_CheckAuthorization Extends Controller_Base {
 			$ldap->connect();
 			$check = $ldap->checkUser($login, $password);
 			if($check==true){
-				$_SESSION['startSESSION'] = 1;
+				session_start();
+				print_r($_SESSION);
+				print_r($_COOKIE);
 				$names = $ldap->getLDAPAccountNamesByPrefix($login);
 				$_SESSION['nameUser'] = $names['0']['sn'].' '.$names['0']['givenName'];
 				$role = $this->postgreSQL->getRoleName($login);

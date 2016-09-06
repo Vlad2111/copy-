@@ -19,36 +19,41 @@ Class Controller_Project Extends Controller_Base {
 	
 	/** Отображение списка сотрудников и времени проета. */
 	function viewProject() {
-		$date = $this->getDate();
-		$this->template->vars('date', $date);
+		if($this->checkSession() == TRUE){
+			$date = $this->getDate();
+			$this->template->vars('date', $date);
 		
-		$status = $this->checkDataEditingForDate($date);
-		$this->template->vars('statusEditingData', $status);
+			$status = $this->checkDataEditingForDate($date);
+			$this->template->vars('statusEditingData', $status);
+			
+			$this->template->vars('projectId', $_GET['projectId']);
+			$this->template->vars('projectName', $_GET['projectName']);
+			$this->template->vars('departmentId', $_GET['departmentId']);
+			if (isset ($_GET['I'])){
+				$_GET['departmentName']=$_GET['departmentName']."&I";
+			}
+			if (isset ($_GET['D'])){
+				$_GET['departmentName']=$_GET['departmentName']."&D";
+			}
+			$this->template->vars('departmentName', $_GET['departmentName']);
 		
-		$this->template->vars('projectId', $_GET['projectId']);
-		$this->template->vars('projectName', $_GET['projectName']);
-		$this->template->vars('departmentId', $_GET['departmentId']);
-		if (isset ($_GET['I'])){
-			$_GET['departmentName']=$_GET['departmentName']."&I";
+			$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
+			$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
+		
+			$arrayEmployeeNamesForDepartment = $this->postgreSQL->getEmployeeNamesForDepartment($_GET['departmentId'], $date);
+			$this->template->vars('arrayEmployeeNamesForDepartment', $arrayEmployeeNamesForDepartment);
+		
+			$arrayEmployeeNamesNotForDepartment = $this->postgreSQL->getEmployeeNamesNotForDepartment($_GET['departmentId'], $date);
+			$this->template->vars('arrayEmployeeNamesNotForDepartment', $arrayEmployeeNamesNotForDepartment);
+		
+			$arrayEployeeNamesAndPercentsForProject = $this->postgreSQL->getEployeeNamesAndPercentsForProject($_GET['projectId'], $date);
+			$this->template->vars('arrayEployeeNamesAndPercentsForProject', $arrayEployeeNamesAndPercentsForProject);
+		
+			$this->template->view('project', 'ProjectLayout');
+		}else{
+			$_GET['route']='Index';
+			include 'index.php';
 		}
-		if (isset ($_GET['D'])){
-			$_GET['departmentName']=$_GET['departmentName']."&D";
-		}
-		$this->template->vars('departmentName', $_GET['departmentName']);
-		
-		$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
-		$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
-		
-		$arrayEmployeeNamesForDepartment = $this->postgreSQL->getEmployeeNamesForDepartment($_GET['departmentId'], $date);
-		$this->template->vars('arrayEmployeeNamesForDepartment', $arrayEmployeeNamesForDepartment);
-		
-		$arrayEmployeeNamesNotForDepartment = $this->postgreSQL->getEmployeeNamesNotForDepartment($_GET['departmentId'], $date);
-		$this->template->vars('arrayEmployeeNamesNotForDepartment', $arrayEmployeeNamesNotForDepartment);
-		
-		$arrayEployeeNamesAndPercentsForProject = $this->postgreSQL->getEployeeNamesAndPercentsForProject($_GET['projectId'], $date);
-		$this->template->vars('arrayEployeeNamesAndPercentsForProject', $arrayEployeeNamesAndPercentsForProject);
-		
-		$this->template->view('project', 'ProjectLayout');
 	}
 		
 	/** Получение даты. */

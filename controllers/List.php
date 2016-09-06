@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(isset($_COOKIE[session_name()])) {session_start();}
 /*
 * Copyright (c) 2016 Tecom LLC
 * All rights reserved
@@ -20,65 +20,51 @@ Class Controller_List Extends Controller_Base {
 	/* Отображение списков. */
 	/** -->Список отделов. */
 	function viewListDepartment() {
-		if($this->checkSession() == TRUE){
-			$date = $this->getDate();
-			$this->template->vars('date', $date);
-			
-			$status = $this->checkDataEditingForDate($date);
-			$this->template->vars('statusEditingData', $status);
-			
-			$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
-			$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
-			
-			$this->template->view('listDepartments', 'listDepartmentLayout');
-		}else{
-			$_GET['route']='Index';
-			include 'index.php';
-		}
+		$date = $this->getDate();
+		$this->template->vars('date', $date);
+		
+		$status = $this->checkDataEditingForDate($date);
+		$this->template->vars('statusEditingData', $status);
+		
+		$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
+		$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
+		
+		$this->template->view('listDepartments', 'listDepartmentLayout');
 	}
 	
 	/** -->Список сотрудников. */
 	function viewListEmployee() {
-		if($this->checkSession() == TRUE){
-			$date = $this->getDate();
-			$this->template->vars('date', $date);
-			
-			$status = $this->checkDataEditingForDate($date);
-			$this->template->vars('statusEditingData', $status);
-			
-			$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
-			$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
-			
-			$arrayEmployeeNames = $this->postgreSQL->getEmployeeNames($date);
-			$this->template->vars('arrayEmployeeNames', $arrayEmployeeNames);
+		$date = $this->getDate();
+		$this->template->vars('date', $date);
 		
-			$this->template->view('listEmployees', 'listEmployeeLayout');
-		}else{
-			$_GET['route']='Index';
-			include 'index.php';
-		}
+		$status = $this->checkDataEditingForDate($date);
+		$this->template->vars('statusEditingData', $status);
+		
+		$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
+		$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
+		
+		$arrayEmployeeNames = $this->postgreSQL->getEmployeeNames($date);
+		$this->template->vars('arrayEmployeeNames', $arrayEmployeeNames);
+		
+		$this->template->view('listEmployees', 'listEmployeeLayout');
+		
 	}
 	
 	/** -->Список проектов. */
 	function viewListProject() {
-		if($this->checkSession() == TRUE){
-			$date = $this->getDate();
-			$this->template->vars('date', $date);
+		$date = $this->getDate();
+		$this->template->vars('date', $date);
 		
-			$status = $this->checkDataEditingForDate($date);
-			$this->template->vars('statusEditingData', $status);
-		
-			$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
-			$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
-		
-			$arrayProjectNames = $this->postgreSQL->getProjectNames($date);
-			$this->template->vars('arrayProjectNames', $arrayProjectNames);
-		
-			$this->template->view('listProjects', 'listProjectLayout');
-		}else{
-			$_GET['route']='Index';
-			include 'index.php';
-		}
+		$status = $this->checkDataEditingForDate($date);
+		$this->template->vars('statusEditingData', $status);
+
+		$arrayDepartmentNames = $this->postgreSQL->getDepartmentNames($date);
+		$this->template->vars('arrayDepartmentNames', $arrayDepartmentNames);
+
+		$arrayProjectNames = $this->postgreSQL->getProjectNames($date);
+		$this->template->vars('arrayProjectNames', $arrayProjectNames);
+
+		$this->template->view('listProjects', 'listProjectLayout');
 	}
 		
 	/** Получение даты. */
@@ -97,15 +83,6 @@ Class Controller_List Extends Controller_Base {
 			}
 		}
 		return $date;
-	}
-
-	/** Проверка сессии. */
-	private function checkSession() {
-		if($_SESSION['startSESSION'] == 1){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
 	}
 	
 	/** Проверка данных для даты на возможность редактирования. */
